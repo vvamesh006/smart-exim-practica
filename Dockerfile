@@ -12,13 +12,16 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-RUN cp .env.example .env || true
+# Sterge orice .env copiat (folosim DOAR variabilele din Render)
+RUN rm -f .env
 RUN touch database/database.sqlite
 RUN chmod -R 777 storage bootstrap/cache database
 
 EXPOSE 8000
 
-CMD php artisan key:generate --force && \
+# Curatam orice cache de config inainte de pornire, apoi pornim
+CMD php artisan config:clear && \
+    php artisan cache:clear || true && \
     php artisan migrate --force && \
     php artisan db:seed --class=DemoSeeder --force && \
     php artisan serve --host 0.0.0.0 --port $PORT
