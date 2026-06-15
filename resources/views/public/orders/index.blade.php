@@ -16,7 +16,7 @@
                 <div class="flex flex-col md:flex-row md:items-center gap-4">
                     <div class="w-16 h-16 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
                         @if($order->product && $order->product->image)
-                            <img src="{{ asset('storage/' . $order->product->image) }}" alt="" class="w-full h-full object-cover">
+                            <img src="{{ (str_starts_with($order->product->image, 'images/') ? asset($order->product->image) : asset('storage/' . $order->product->image)) }}" alt="" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex items-center justify-center text-2xl">🍎</div>
                         @endif

@@ -30,7 +30,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col group">
                         <div class="h-56 bg-gray-100 overflow-hidden relative">
                             @if($product->image)
-                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ (str_starts_with($product->image, 'images/') ? asset($product->image) : asset('storage/' . $product->image)) }}" alt="{{ $product->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-gray-300 text-6xl">
                                     @php $e = ['Mere' => '🍎', 'Cireșe' => '🍒', 'Cereale' => '🌾'][$product->category->name ?? ''] ?? '🍎'; @endphp

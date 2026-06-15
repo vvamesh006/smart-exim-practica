@@ -10,7 +10,7 @@
             <div class="flex items-center gap-4 bg-green-50 p-6 border-b border-green-100">
                 <div class="w-20 h-20 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0">
                     @if($product->image)
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
+                        <img src="{{ (str_starts_with($product->image, 'images/') ? asset($product->image) : asset('storage/' . $product->image)) }}" alt="{{ $product->name }}" class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center text-3xl">🍎</div>
                     @endif

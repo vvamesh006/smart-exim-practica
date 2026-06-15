@@ -23,30 +23,29 @@ class DemoSeeder extends Seeder
         DB::statement('DELETE FROM products');
         DB::statement('DELETE FROM categories');
 
-        // Categorii noi
+        // Categorii
         $mere = Category::create(['name' => 'Mere', 'slug' => 'mere', 'description' => 'Mere proaspete din livezile noastre.']);
         $cirese = Category::create(['name' => 'Cireșe', 'slug' => 'cirese', 'description' => 'Cireșe dulci, cultivate superintensiv.']);
         $cereale = Category::create(['name' => 'Cereale', 'slug' => 'cereale', 'description' => 'Cereale și culturi de câmp.']);
 
-        // Produse Mere
+        // Produse cu imagini fixe (din public/images/produse/)
         $produse = [
-            [$mere->id, 'Mere Golden Delicious', 'Mere galben-aurii, dulci și aromate, perfecte pentru consum proaspăt.'],
-            [$mere->id, 'Mere Gala', 'Mere crocante, dulci, cu coajă roșu-portocalie, foarte apreciate.'],
-            [$mere->id, 'Mere Red Delicious', 'Mere roșii intens colorate, dulci și suculente.'],
-            [$mere->id, 'Mere Granny Smith', 'Mere verzi, acrișoare și crocante, ideale pentru gătit și deserturi.'],
-            [$mere->id, 'Mere Idared', 'Mere roșii cu gust echilibrat dulce-acrișor, excelente la păstrare.'],
+            [$mere->id, 'Mere Golden Delicious', 'Mere galben-aurii, dulci și aromate, perfecte pentru consum proaspăt.', 'images/produse/golden.jpg'],
+            [$mere->id, 'Mere Gala', 'Mere crocante, dulci, cu coajă roșu-portocalie, foarte apreciate.', 'images/produse/gala.jpg'],
+            [$mere->id, 'Mere Red Delicious', 'Mere roșii intens colorate, dulci și suculente.', 'images/produse/red-delicious.jpg'],
+            [$mere->id, 'Mere Granny Smith', 'Mere verzi, acrișoare și crocante, ideale pentru gătit și deserturi.', 'images/produse/granny.jpg'],
+            [$mere->id, 'Mere Idared', 'Mere roșii cu gust echilibrat dulce-acrișor, excelente la păstrare.', 'images/produse/idared.jpg'],
+            [$mere->id, 'Mere Discovery', 'Mere timpurii, dulci-acrișoare, cu pulpă albă și fermă.', 'images/produse/discovery.jpg'],
 
-            // Produse Cirese
-            [$cirese->id, 'Cireșe Bigarreau', 'Cireșe mari, ferme și dulci, de culoare roșu-închis.'],
-            [$cirese->id, 'Cireșe Kordia', 'Cireșe de soi premium, foarte dulci și rezistente la transport.'],
-            [$cirese->id, 'Cireșe Regina', 'Cireșe târzii, mari și cărnoase, cu gust intens.'],
-            [$cirese->id, 'Cireșe Skeena', 'Cireșe ferme, dulci, ideale pentru export.'],
+            [$cirese->id, 'Cireșe Bigarreau', 'Cireșe mari, ferme și dulci, de culoare roșu-închis.', 'images/produse/bigarreau.jpg'],
+            [$cirese->id, 'Cireșe Kordia', 'Cireșe de soi premium, foarte dulci și rezistente la transport.', 'images/produse/kordia.jpg'],
+            [$cirese->id, 'Cireșe Regina', 'Cireșe târzii, mari și cărnoase, cu gust intens.', 'images/produse/regina.jpg'],
+            [$cirese->id, 'Cireșe Skeena', 'Cireșe ferme, dulci, ideale pentru export.', 'images/produse/skeena.jpg'],
 
-            // Produse Cereale
-            [$cereale->id, 'Grâu', 'Grâu de panificație de înaltă calitate, livrat în vrac.'],
-            [$cereale->id, 'Porumb', 'Porumb boabe pentru hrana animalelor și industrie.'],
-            [$cereale->id, 'Floarea-soarelui', 'Semințe de floarea-soarelui pentru ulei și procesare.'],
-            [$cereale->id, 'Soia', 'Boabe de soia de calitate superioară.'],
+            [$cereale->id, 'Grâu', 'Grâu de panificație de înaltă calitate, livrat în vrac.', 'images/produse/grau.jpg'],
+            [$cereale->id, 'Porumb', 'Porumb boabe pentru hrana animalelor și industrie.', 'images/produse/porumb.jpg'],
+            [$cereale->id, 'Floarea-soarelui', 'Semințe de floarea-soarelui pentru ulei și procesare.', 'images/produse/floarea.png'],
+            [$cereale->id, 'Soia', 'Boabe de soia de calitate superioară.', 'images/produse/soia.jpg'],
         ];
 
         foreach ($produse as $p) {
@@ -54,11 +53,12 @@ class DemoSeeder extends Seeder
                 'category_id' => $p[0],
                 'name' => $p[1],
                 'description' => $p[2],
+                'image' => $p[3],
                 'is_active' => true,
             ]);
         }
 
-        // Servicii (doar daca nu exista deja)
+        // Servicii
         if (Service::count() == 0) {
             $servicii = [
                 ['Comerț cu ridicata', 'Comerț cu ridicata al produselor agricole brute și animalelor vii.', 'truck'],
